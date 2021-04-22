@@ -13,9 +13,9 @@ router
   .get(getUsers);
 
 router.use(
-  "/:id/exercises",
+  "/:_id/exercises",
   [
-    check("id").isMongoId(),
+    check("_id").isMongoId(),
     check("description").notEmpty(),
     check("duration").isNumeric().notEmpty(),
     errorHandler,
