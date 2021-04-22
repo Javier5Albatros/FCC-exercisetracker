@@ -10,7 +10,7 @@ const saveExerciseByUserId = async (req, res) => {
   });
   await exercise.save();
 
-  user.logs.push(exercise);
+  user.log.push(exercise);
   await user.save();
 
   return res.json({ 

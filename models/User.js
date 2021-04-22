@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  logs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Exercise" }],
+  log: [{ type: mongoose.Schema.Types.ObjectId, ref: "Exercise" }],
 });
 
 const User = mongoose.model("User", userSchema);
