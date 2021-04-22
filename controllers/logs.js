@@ -1,6 +1,10 @@
+const User = require("../models/User");
+
 const getLogs = async (req, res) => {
     const user = req.user;
-    return res.json(await user.populate("logs"));
+    await User.populate(user, "logs")
+    
+    return res.json(user);
 };
 
 module.exports = { getLogs };
