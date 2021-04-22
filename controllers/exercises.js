@@ -10,14 +10,14 @@ const saveExerciseByUserId = async (req, res) => {
   });
   await exercise.save();
 
-  user.exercises.push(exercise);
+  user.logs.push(exercise);
   await user.save();
 
   return res.json({ 
       username: user.username,
       description,
       duration,
-      _id: user.id,
+      _id,
       date: exercise.date.toDateString()
   });
 };

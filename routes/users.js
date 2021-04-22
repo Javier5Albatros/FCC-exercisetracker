@@ -3,6 +3,7 @@ const { check } = require("express-validator");
 const errorHandler = require("../middlewares/errorHandler");
 const { saveUser, getUsers } = require("../controllers/users");
 const { saveExerciseByUserId } = require("../controllers/exercises");
+const { getLogs } = require("../controllers/logs");
 const checkExistingUser = require("../middlewares/checkExistingUser");
 
 const router = express.Router();
@@ -22,6 +23,12 @@ router.use(
     checkExistingUser,
   ],
   saveExerciseByUserId
+);
+
+router.use(
+  "/:_id/logs",
+  [check("_id").isMongoId(), errorHandler, checkExistingUser],
+  getLogs
 );
 
 module.exports = router;
