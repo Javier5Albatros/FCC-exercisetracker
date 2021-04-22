@@ -13,7 +13,13 @@ const saveExerciseByUserId = async (req, res) => {
   user.exercises.push(exercise);
   await user.save();
 
-  return res.json(await user.populate('posts'));
+  return res.json({ 
+      _id: user.id,
+      username: user.username,
+      description,
+      duration,
+      date: exercise.date.toDateString()
+  });
 };
 
 
