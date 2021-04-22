@@ -1,8 +1,8 @@
 const User = require("../models/User");
 
 const checkExistingUser = async (req, res, next) => {
-  const { id } = req.params;
-  const user = await User.findById(id);
+  const { _id } = req.params;
+  const user = await User.findById(_id);
   if (user) {
     req.user = user;
     next();
