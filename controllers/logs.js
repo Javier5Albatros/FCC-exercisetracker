@@ -15,7 +15,7 @@ const getLogs = async (req, res) => {
 
   await User.populate(user, {
     path: "log",
-    perDocumentLimit: limit || 0,
+    perDocumentLimit: Number(limit) || 0,
     match: {
       date: {
         $gte: from,
