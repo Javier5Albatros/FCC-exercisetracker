@@ -9,7 +9,7 @@ const getLogs = async (req, res) => {
     _id: user.id,
     username: user.username,
     count: log.count,
-    log: user.exercises,
+    log: user.log,
   });
 };
 
