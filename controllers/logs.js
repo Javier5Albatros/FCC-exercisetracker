@@ -1,9 +1,15 @@
+const moment = require("moment");
+
 const User = require("../models/User");
 const Log = require("../models/Log");
 
 const getLogs = async (req, res) => {
   const user = new User(req.user);
-  const { from, to, limit } = req.query;
+  let { from, to, limit } = req.query;
+  from = moment(from, "YYYY-MM-DD").isValid() ? moment(from, "YYYY-MM-DD") : 0;
+  to = moment(to, "YYYY-MM-DD").isValid()
+    ? moment(to, "YYYY-MM-DD")
+    : moment().add(1000000000000);
 
   await User.populate(user, {
     path: "log",
