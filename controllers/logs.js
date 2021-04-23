@@ -6,23 +6,28 @@ const Log = require("../models/Log");
 const getLogs = async (req, res) => {
   const user = new User(req.user);
   let { from, to, limit } = req.query;
-  from = moment(from, "YYYY-MM-DD").isValid() ? moment(from, "YYYY-MM-DD") : 0;
+  from = moment(from, "YYYY-MM-DD").isValid()
+    ? moment(from, "YYYY-MM-DD").toDate()
+    : new Date("1990-1-1");
   to = moment(to, "YYYY-MM-DD").isValid()
-    ? moment(to, "YYYY-MM-DD")
-    : moment().add(1000000000000);
+    ? moment(to, "YYYY-MM-DD").toDate()
+    : moment().add(1000000000000).toDate();
 
   await User.populate(user, {
     path: "log",
     perDocumentLimit: limit || 0,
     match: {
-      date: [{ $gte: from || 0 }, { $lte: to || 0 }],
+      date: {
+        $gte: from,
+        $lte: to
+      },
     },
   });
-  const log = new Log({ user, count: user.log.length });
+
   return res.json({
     _id: user.id,
     username: user.username,
-    count: log.count,
+    count: user.log.length,
     log: user.log,
   });
 };
