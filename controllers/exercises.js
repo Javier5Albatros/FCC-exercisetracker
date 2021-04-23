@@ -14,7 +14,7 @@ const saveExerciseByUserId = async (req, res) => {
   await user.save();
 
   return res.json({
-    _id: exercise.id,
+    _id: user.id,
     username: user.username,
     date: exercise.date.toDateString(),
     duration: Number(exercise.duration),
