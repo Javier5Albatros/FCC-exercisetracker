@@ -1,11 +1,11 @@
 const User = require("../models/User");
+const Log = require("../models/Log");
 
 const getLogs = async (req, res) => {
-    let user = req.user;
-    await User.populate(user, "log")
-    const count = user.log.length;
-    user["count"] = count
-    return res.json(user);
+  const user = req.user;
+  await User.populate(user, "log");
+  const log = new Log({ user, count: user.log.length });
+  return res.json(log);
 };
 
 module.exports = { getLogs };
