@@ -13,15 +13,14 @@ const saveExerciseByUserId = async (req, res) => {
   user.log.push(exercise);
   await user.save();
 
-  return res.json({ 
-      username: user.username,
-      description,
-      duration,
-      _id,
-      date: exercise.date.toDateString()
+  return res.json({
+    _id: exercise.id,
+    username: user.username,
+    date: exercise.date.toDateString(),
+    duration: Number(exercise.duration),
+    description,
   });
 };
-
 
 module.exports = {
   saveExerciseByUserId,
